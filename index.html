@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <header style="background-color: white; height: 140px; width: 100%; box-shadow: red 0px 0px 75px;">
+    <h1 id="message"></h1>
+  </header>
+  <head>
+	  <meta charset="UTF-8">
+	  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@100;900&display=swap" rel="stylesheet">
+    <title>Estapeação de Toninho 2?</title>
+    <style>
+      body {
+        font-size: 60px;
+        background-color: rgb(23,18,43);
+        color: white;
+        font-family: "Barlow", sans-serif;
+        margin: 0;
+      } h1 {
+        margin: 0;
+        padding:0;
+        transform: translateY(55%);
+        font-size: 0.9em;
+        font-weight: 600;
+        color: red;
+        text-align: center;
+      } h2 {
+        text-align: center;
+        font-size: 5rem;
+	      font-weight: 100
+      } iframe {
+        border-radius: 30px;
+	      margin-left: auto;
+        margin-right: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h2 id="countdown"></h2>
+    <iframe id="video" width="560" height="315" src="https://www.youtube.com/embed/meA3N4adpuA?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
+      <script>
+        const iframe = document.querySelector('iframe');
+
+        setInterval(() => {
+        if (screen.height > screen.width) {
+        iframe.style.height = `${screen.height*1.2}px`;
+		    iframe.style.width = `${screen.width*1.2}px`;
+        } else {
+        iframe.style.height = `${screen.height/2}px`;
+        iframe.style.width = `${screen.width/2}px`;
+        }
+        });
+
+        const messageElement = document.getElementById("message");
+        const videoElement = document.getElementById("video");
+        const countdownElement = document.getElementById("countdown");
+
+       videoElement.style.display = "block";
+
+ 	     function displayMessage() {
+       const today = new Date();
+	     let targetYear = today.getFullYear();
+
+        if (today.getMonth() === 10 && today.getDate() === 21) {
+        targetYear += 1;
+        }
+
+        const targetDate = new Date(targetYear, 10, 20);
+       let timeDiff = targetDate.getTime() - today.getTime();
+
+        if (timeDiff < 0) {
+        messageElement.innerHTML = "Hoje É o Dia Nacional da Estapeação de Toninho!";
+        countdownElement.style.display = "none";
+        } else {
+        messageElement.innerHTML = "Hoje NÃO É o Dia Nacional da Estapeação de Toninho!";
+       countdownElement.style.display = "block";
+       timeDiff /= 1000;
+       const seconds = Math.floor(timeDiff % 60);
+       timeDiff = Math.floor(timeDiff / 60);
+       const minutes = Math.floor(timeDiff % 60);
+        timeDiff = Math.floor(timeDiff / 60);
+        const hours = Math.floor(timeDiff % 24);
+        const days = Math.floor(timeDiff / 24);
+	      const formattedHours = ("0" + hours).slice(-2);
+	      const formattedMinutes = ("0" + minutes).slice(-2);
+	      const formattedSeconds = ("0" + seconds).slice(-2);
+        countdownElement.innerHTML = `Faltam ${days} dias ${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+         }
+        }
+  
+        displayMessage();
+        setInterval(displayMessage, 1000);
+      </script>
+  </body>
+</html>
